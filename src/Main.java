@@ -1,5 +1,7 @@
 import java.sql.*;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.random.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +13,7 @@ public class Main {
         {
             System.out.println("select an option");
             System.out.println("1.insert");
-            System.out.println("2.select");
+            System.out.println("2.select or view");
             System.out.println("3.search");
             System.out.println("4.delete");
             System.out.println("5.update");
@@ -71,10 +73,39 @@ public class Main {
                         System.out.println(e);
                     }
                     break;
-            case 3:
-                System.out.println("search student selected");
-                break;
-            case 4:
+
+                case 3:
+                    System.out.println("Search student");
+                    System.out.println("Enter the admission number : ");
+                    admno=scanner.nextInt();
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb","root","");
+                        String sql = "SELECT `name`, `rollnumber`, `admno`, `college` FROM `students` WHERE `admno`="+String.valueOf(admno);
+                        Statement stmt = con.createStatement();
+                        ResultSet rs = stmt.executeQuery(sql);
+                        while (rs.next()){
+
+                            String getName = rs.getString("name");
+                            String getRollno = rs.getString("rollnumber");
+                            String getAdmno = rs.getString("admno");
+                            String getCollege = rs.getString("college");
+                            System.out.println("Name="+getName);
+                            System.out.println("Rollno="+getRollno);
+                            System.out.println("Admno="+getAdmno);
+                            System.out.println("college="+getCollege+"\n");
+                        }
+                    }
+                    catch (Exception e ){
+                        System.out.println(e);
+                    }
+
+
+                    break;
+
+
+
+                case 4:
                 System.out.println("delete student selected");
                 break;
             case 5:
