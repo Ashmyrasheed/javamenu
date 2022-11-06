@@ -121,9 +121,30 @@ public class Main {
                         System.out.println(e);
                     }
                 break;
-            case 5:
-                System.out.println("update student selected");
-                break;
+                case 5:
+                    System.out.println("Enter the admno to be updating");
+                    admno = scanner.nextInt();
+                    System.out.println("Enter the name to be updated");
+                    name = scanner.next();
+                    System.out.println("Enter the roll number");
+                    int rollNumber = scanner.nextInt();
+                    System.out.println("Enter the admno");
+                    int adminNo = scanner.nextInt();
+                    System.out.println("Enter the college name");
+                    String college = scanner.next();
+                    try{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb", "root", "");
+                        String sql = "UPDATE `students` SET `name`='"+name+"',`rollnumber`='"+String.valueOf(rollNumber)+"',`admno`='"+String.valueOf(adminNo)+"',`college`='"+college+"' WHERE `admno`="+String.valueOf(admno);
+                        Statement stmt = con.createStatement();
+                        stmt.executeUpdate(sql);
+                        System.out.println("Updated successfully");
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                    }
+                    break;
+
             case 6:
                 System.exit(0);
                 break;
